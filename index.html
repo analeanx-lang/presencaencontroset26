@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Encontro Mastermind · Setembro 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d2320; --bg-2:#121413; --bg-3:#181b19; --line:#262a26;
+  --text:#EEF0E8; --muted:#9aa08c; --gold:#E8943A; --danger:#FF5C3A;
+  --ok:#7fb069;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Montserrat,system-ui,sans-serif;padding:28px 20px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.brand-tag{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+h1{font-size:34px;font-weight:900;line-height:1.05}
+h1 span{color:var(--gold)}
+.sub{font-size:11px;font-weight:700;color:var(--muted);margin-top:6px;letter-spacing:.5px}
+.status{text-align:right;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px;vertical-align:middle}
+.dot.err{background:var(--danger)}
+.btn{margin-top:10px;background:transparent;border:1.5px solid var(--line);color:var(--text);font-family:inherit;
+  font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:3px}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:22px}
+.card{background:var(--bg-2);border:1.5px solid var(--line);border-radius:5px;padding:16px 18px}
+.card .modo{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.card .valor{font-size:38px;font-weight:900;line-height:1;color:var(--gold)}
+.card.neutro .valor{color:var(--text)}
+.card.alerta .valor{color:var(--danger)}
+.card .det{font-size:10px;font-weight:700;color:var(--muted);margin-top:6px}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1.5px solid var(--line);padding-bottom:0}
+.tab{background:transparent;border:none;border-bottom:2.5px solid transparent;color:var(--muted);font-family:inherit;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:11px 16px;cursor:pointer}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tab b{font-weight:900;margin-left:7px;opacity:.65}
+
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+input[type=search]{flex:1;min-width:200px;background:var(--bg-3);border:1.5px solid var(--line);border-radius:4px;
+  color:var(--text);font-family:inherit;font-size:12px;font-weight:600;padding:9px 12px}
+input[type=search]:focus{outline:none;border-color:var(--gold)}
+.chk{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;gap:6px;user-select:none}
+.chk input{accent-color:var(--gold);cursor:pointer}
+
+table{width:100%;border-collapse:collapse;background:var(--bg-2);border:1.5px solid var(--line);border-radius:5px;overflow:hidden}
+th{font-size:8.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  text-align:left;padding:11px 12px;border-bottom:1.5px solid var(--line);white-space:nowrap;background:var(--bg-3)}
+td{font-size:12px;font-weight:600;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg-3)}
+td.nome{font-weight:800}
+td.nome small{display:block;font-weight:600;color:var(--muted);font-size:10px;margin-top:2px}
+.contato{color:var(--muted);font-size:10.5px;font-weight:600;white-space:nowrap}
+
+.pill{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  padding:4px 9px;border-radius:3px;white-space:nowrap}
+.p-gh{background:rgba(232,148,58,.15);color:var(--gold)}
+.p-bm{background:rgba(238,240,232,.1);color:var(--text)}
+.p-hs{background:rgba(127,176,105,.15);color:var(--ok)}
+.p-sim{background:rgba(127,176,105,.15);color:var(--ok)}
+.p-nao{background:rgba(255,92,58,.15);color:var(--danger)}
+.p-pend{background:rgba(154,160,140,.15);color:var(--muted)}
+.p-falta{background:rgba(255,92,58,.18);color:var(--danger)}
+.p-ok{background:rgba(127,176,105,.15);color:var(--ok)}
+
+.aviso{background:var(--bg-2);border:1.5px solid var(--line);border-left:3px solid var(--gold);border-radius:4px;
+  padding:13px 16px;margin-bottom:18px;font-size:11.5px;font-weight:600;line-height:1.6;color:var(--muted)}
+.aviso b{color:var(--text);font-weight:800}
+.vazio{padding:40px;text-align:center;font-size:12px;font-weight:700;color:var(--muted)}
+footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:10px}
+.tag{font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:7px}
+.tag::before{content:'';width:5px;height:5px;background:var(--gold);display:block}
+.direita{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+@media(max-width:640px){h1{font-size:24px}.card .valor{font-size:30px}th,td{padding:9px 8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="brand-tag">Make Brazil Healthy Again</div>
+    <h1>Encontro <span>Mastermind</span></h1>
+    <div class="sub">Setembro 2026 · Clara Ibiúna Resort · Ibiúna – SP</div>
+  </div>
+  <div class="status">
+    <div><span class="dot" id="dot"></span><span id="statusTxt">Carregando</span></div>
+    <button class="btn" id="reload">Atualizar agora</button>
+  </div>
+</header>
+
+<div id="avisos"></div>
+
+<div class="cards" id="cards"></div>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="toolbar">
+  <input type="search" id="busca" placeholder="Buscar por nome...">
+  <label class="chk"><input type="checkbox" id="soConf"> Só confirmados</label>
+  <label class="chk"><input type="checkbox" id="verContato"> Mostrar contato</label>
+</div>
+
+<div id="tabela"></div>
+
+<footer>
+  <div class="tag">Encontro Mastermind · Setembro 2026</div>
+  <div class="direita">Grupo GH · Atualiza a cada 2 min</div>
+</footer>
+
+</div>
+
+<script>
+/* ============================================================
+   FONTES DE DADOS
+   Para ligar a planilha de presença do time:
+   1. Publique a aba dela em CSV (Arquivo > Compartilhar > Publicar na web)
+   2. Cole a URL em PRESENCA_URL abaixo
+   3. Ajuste PRESENCA_COL_EMAIL / PRESENCA_COL_NOME se os cabeçalhos forem outros
+   ============================================================ */
+const FONTES = [
+  { prog:'Black Monster',  cls:'p-bm', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQNY4lqMJK0MntsBvHnSd6bEFrYGcQxZi9EeO_PwMrm3xlqcAHu1wpNwqDgW6GJi3oDGVfptnh4XwO7/pub?output=csv' },
+  { prog:'Health Society', cls:'p-hs', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vSO8ogCyMiKcBhai8-Yy54Og27J4iX8-qIxxQXyRcmP-ksuhuMz5NHx7Cx8wZnJMCb-0SRfyfE3iUGl/pub?output=csv' },
+  { prog:'GH',             cls:'p-gh', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vSApE_WqDwnGwVJQplC2dooPLmQhmOiQKP-KG0wTaOY9ADKzgi6k0mnZX9TkXuiqi-SWz3F_7ozLEZv/pub?output=csv' }
+];
+
+const PRESENCA_URL = '';                       // <-- cole aqui quando o time publicar
+const PRESENCA_COL_EMAIL = 'e-mail';           // trecho do cabeçalho da coluna de e-mail
+const PRESENCA_COL_NOME  = 'nome';             // trecho do cabeçalho da coluna de nome
+
+/* ---------- parser CSV ---------- */
+function parseCSV(txt){
+  txt = txt.replace(/^\uFEFF/,'');
+  const linhas=[]; let campo='', linha=[], aspas=false;
+  for(let i=0;i<txt.length;i++){
+    const c=txt[i];
+    if(aspas){
+      if(c==='"'){ if(txt[i+1]==='"'){campo+='"';i++;} else aspas=false; }
+      else campo+=c;
+    } else {
+      if(c==='"') aspas=true;
+      else if(c===','){ linha.push(campo); campo=''; }
+      else if(c==='\n'){ linha.push(campo); linhas.push(linha); linha=[]; campo=''; }
+      else if(c!=='\r') campo+=c;
+    }
+  }
+  if(campo!==''||linha.length){ linha.push(campo); linhas.push(linha); }
+  if(!linhas.length) return [];
+  const cab = linhas[0].map(h=>h.trim());
+  return linhas.slice(1)
+    .filter(l=>l.some(v=>v.trim()!==''))
+    .map(l=>{ const o={}; cab.forEach((h,i)=>o[h]=(l[i]||'').trim()); return o; });
+}
+
+/* ---------- helpers ---------- */
+const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+const col  = (obj,...termos) => {
+  const k = Object.keys(obj).find(k=>termos.every(t=>norm(k).includes(norm(t))));
+  return k ? obj[k] : '';
+};
+function ehTeste(r){
+  const n=norm(r.nome), e=norm(r.email);
+  if(/^(teste?|test)\b/.test(n) || /^(teste?|test)\b/.test(e)) return true;
+  if(/teste|gmial\.com/.test(e)) return true;
+  // respostas sem sentido: 4+ campos com string sem vogal-consoante plausível
+  const lixo=[r.temas,r.hotseat,r.sugestao].filter(v=>v && /^[a-z]{5,}$/i.test(v) && !/[aeiou]{1}[a-z]*\s/.test(v)).length;
+  return lixo>=3;
+}
+
+let DADOS=[], PRESENCA=null, ERROS=[], TESTES=0, ABA='Geral';
+
+async function carregar(){
+  document.getElementById('dot').className='dot';
+  document.getElementById('statusTxt').textContent='Carregando';
+  DADOS=[]; ERROS=[]; TESTES=0;
+
+  await Promise.all(FONTES.map(async f=>{
+    try{
+      const r = await fetch(f.url+'&_='+Date.now());
+      if(!r.ok) throw new Error(r.status);
+      parseCSV(await r.text()).forEach(row=>{
+        const item={
+          prog:f.prog, cls:f.cls,
+          nome:  col(row,'nome completo') || col(row,'nome'),
+          apelido: col(row,'gostaria de ser chamado'),
+          email: col(row,'e-mail'),
+          zap:   col(row,'whatsapp'),
+          conf:  col(row,'encontro vai acontecer'),
+          moletom: col(row,'moletom'),
+          restr: col(row,'restri'),
+          hotseat: col(row,'hotseat'),
+          temas: col(row,'temas'),
+          sugestao: col(row,'sugest'),
+          enviado: col(row,'submitted')
+        };
+        if(!item.nome && !item.email) return;
+        if(ehTeste(item)){ TESTES++; return; }
+        item.vai = /^sim/i.test(item.conf.trim());
+        item.respondeu = item.conf.trim()!=='';
+        DADOS.push(item);
+      });
+    }catch(e){ ERROS.push(f.prog); }
+  }));
+
+  PRESENCA=null;
+  if(PRESENCA_URL){
+    try{
+      const r=await fetch(PRESENCA_URL+'&_='+Date.now());
+      PRESENCA = parseCSV(await r.text()).map(row=>({
+        email: norm(col(row,PRESENCA_COL_EMAIL)),
+        nome:  norm(col(row,PRESENCA_COL_NOME))
+      })).filter(p=>p.email||p.nome);
+    }catch(e){ ERROS.push('Presença'); }
+  }
+
+  // cruzamento
+  DADOS.forEach(d=>{
+    if(!PRESENCA){ d.presenca='sem-planilha'; return; }
+    const achou = PRESENCA.some(p =>
+      (p.email && d.email && p.email===norm(d.email)) ||
+      (p.nome && d.nome && p.nome===norm(d.nome))
+    );
+    d.presenca = achou ? 'ok' : 'falta';
+  });
+
+  // quem está na presença mas não preencheu o formulário
+  window.SO_PRESENCA = [];
+  if(PRESENCA){
+    PRESENCA.forEach(p=>{
+      const achou = DADOS.some(d =>
+        (p.email && d.email && p.email===norm(d.email)) ||
+        (p.nome && d.nome && p.nome===norm(d.nome))
+      );
+      if(!achou) window.SO_PRESENCA.push(p);
+    });
+  }
+
+  const agora = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('dot').className = ERROS.length ? 'dot err' : 'dot';
+  document.getElementById('statusTxt').textContent = ERROS.length ? 'Erro em '+ERROS.join(', ') : 'Atualizado '+agora;
+  render();
+}
+
+function render(){
+  const busca = norm(document.getElementById('busca').value);
+  const soConf = document.getElementById('soConf').checked;
+  const verContato = document.getElementById('verContato').checked;
+
+  // avisos
+  const av=[];
+  if(!PRESENCA_URL) av.push('<b>Planilha de presença não conectada.</b> A coluna de status fica pendente até o link ser colado no arquivo (constante <code>PRESENCA_URL</code>).');
+  if(TESTES) av.push('<b>'+TESTES+' linha(s) de teste</b> foram ocultadas automaticamente.');
+  if(ERROS.length) av.push('<b>Falha ao ler:</b> '+ERROS.join(', ')+'. Verifique se a planilha continua publicada.');
+  if(window.SO_PRESENCA && window.SO_PRESENCA.length) av.push('<b>'+window.SO_PRESENCA.length+' pessoa(s) na planilha de presença</b> não preencheram o formulário do Typeform.');
+  document.getElementById('avisos').innerHTML = av.map(a=>'<div class="aviso">'+a+'</div>').join('');
+
+  // cards
+  const conf = DADOS.filter(d=>d.vai);
+  const nao  = DADOS.filter(d=>d.respondeu && !d.vai);
+  const falta = DADOS.filter(d=>d.vai && d.presenca==='falta');
+  document.getElementById('cards').innerHTML = `
+    <div class="card"><div class="modo">Confirmados</div><div class="valor">${conf.length}</div>
+      <div class="det">de ${DADOS.length} respostas</div></div>
+    <div class="card neutro"><div class="modo">Não vão</div><div class="valor">${nao.length}</div>
+      <div class="det">responderam não</div></div>
+    ${FONTES.map(f=>{
+      const n = conf.filter(d=>d.prog===f.prog).length;
+      return `<div class="card neutro"><div class="modo">${f.prog}</div><div class="valor">${n}</div>
+      <div class="det">confirmados</div></div>`;
+    }).join('')}
+    ${PRESENCA?`<div class="card alerta"><div class="modo">Falta na presença</div><div class="valor">${falta.length}</div>
+      <div class="det">confirmados fora da lista</div></div>`:''}
+  `;
+
+  // tabs
+  const abas = ['Geral', ...FONTES.map(f=>f.prog)];
+  document.getElementById('tabs').innerHTML = abas.map(a=>{
+    const n = a==='Geral' ? conf.length : conf.filter(d=>d.prog===a).length;
+    return `<button class="tab ${a===ABA?'on':''}" data-aba="${a}">${a}<b>${n}</b></button>`;
+  }).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{ABA=b.dataset.aba;render();});
+
+  // linhas
+  let linhas = DADOS
+    .filter(d=>ABA==='Geral'||d.prog===ABA)
+    .filter(d=>!soConf||d.vai)
+    .filter(d=>!busca||norm(d.nome).includes(busca)||norm(d.apelido).includes(busca))
+    .sort((a,b)=> (b.vai-a.vai) || a.nome.localeCompare(b.nome,'pt-BR'));
+
+  if(!linhas.length){
+    document.getElementById('tabela').innerHTML='<div class="vazio">Nenhum registro para este filtro.</div>';
+    return;
+  }
+
+  const statusPresenca = d => {
+    if(!PRESENCA) return '<span class="pill p-pend">Sem planilha</span>';
+    if(d.presenca==='falta') return '<span class="pill p-falta">Falta na presença</span>';
+    return '<span class="pill p-ok">Na lista</span>';
+  };
+
+  document.getElementById('tabela').innerHTML = `
+  <table>
+    <thead><tr>
+      <th>Nome</th>
+      ${ABA==='Geral'?'<th>Programa</th>':''}
+      <th>Confirmação</th>
+      ${verContato?'<th>Contato</th>':''}
+      <th>Moletom</th>
+      <th>Restrição</th>
+      <th>Hotseat</th>
+      <th>Presença</th>
+    </tr></thead>
+    <tbody>
+    ${linhas.map(d=>`
+      <tr>
+        <td class="nome">${esc(d.nome)}${d.apelido&&norm(d.apelido)!==norm(d.nome)?`<small>${esc(d.apelido)}</small>`:''}</td>
+        ${ABA==='Geral'?`<td><span class="pill ${d.cls}">${d.prog}</span></td>`:''}
+        <td>${d.vai?'<span class="pill p-sim">Vai</span>':d.respondeu?'<span class="pill p-nao">Não vai</span>':'<span class="pill p-pend">Sem resposta</span>'}</td>
+        ${verContato?`<td class="contato">${esc(d.email)}<br>${esc(d.zap)}</td>`:''}
+        <td>${esc(d.moletom)||'—'}</td>
+        <td>${esc(d.restr)||'—'}</td>
+        <td>${esc(d.hotseat)||'—'}</td>
+        <td>${statusPresenca(d)}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+document.getElementById('busca').oninput=render;
+document.getElementById('soConf').onchange=render;
+document.getElementById('verContato').onchange=render;
+document.getElementById('reload').onclick=carregar;
+
+carregar();
+setInterval(carregar, 120000);
+</script>
+</body>
+</html>
