@@ -258,8 +258,6 @@ function render(){
 
   // avisos
   const av=[];
-  if(!PRESENCA_URL) av.push('<b>Planilha de presença não conectada.</b> A coluna de status fica pendente até o link ser colado no arquivo (constante <code>PRESENCA_URL</code>).');
-  if(TESTES) av.push('<b>'+TESTES+' linha(s) de teste</b> foram ocultadas automaticamente.');
   if(ERROS.length) av.push('<b>Falha ao ler:</b> '+ERROS.join(', ')+'. Verifique se a planilha continua publicada.');
   if(window.SO_PRESENCA && window.SO_PRESENCA.length) av.push('<b>'+window.SO_PRESENCA.length+' pessoa(s) na planilha de presença</b> não preencheram o formulário do Typeform.');
   document.getElementById('avisos').innerHTML = av.map(a=>'<div class="aviso">'+a+'</div>').join('');
