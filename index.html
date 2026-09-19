@@ -9,12 +9,11 @@
 <style>
 :root{
   --bg:#0d2320; --bg-2:#121413; --bg-3:#181b19; --line:#262a26;
-  --text:#EEF0E8; --muted:#9aa08c; --gold:#E8943A; --danger:#FF5C3A;
-  --ok:#7fb069;
+  --text:#EEF0E8; --muted:#9aa08c; --gold:#E8943A; --danger:#FF5C3A; --ok:#7fb069;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:Montserrat,system-ui,sans-serif;padding:28px 20px 60px}
-.wrap{max-width:1180px;margin:0 auto}
+.wrap{max-width:1320px;margin:0 auto}
 
 header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
 .brand-tag{font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
@@ -28,22 +27,22 @@ h1 span{color:var(--gold)}
   font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:3px}
 .btn:hover{border-color:var(--gold);color:var(--gold)}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:22px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
 .card{background:var(--bg-2);border:1.5px solid var(--line);border-radius:5px;padding:16px 18px}
 .card .modo{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.card .valor{font-size:38px;font-weight:900;line-height:1;color:var(--gold)}
+.card .valor{font-size:36px;font-weight:900;line-height:1;color:var(--gold)}
 .card.neutro .valor{color:var(--text)}
 .card.alerta .valor{color:var(--danger)}
 .card .det{font-size:10px;font-weight:700;color:var(--muted);margin-top:6px}
 
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1.5px solid var(--line);padding-bottom:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1.5px solid var(--line)}
 .tab{background:transparent;border:none;border-bottom:2.5px solid transparent;color:var(--muted);font-family:inherit;
   font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:11px 16px;cursor:pointer}
 .tab:hover{color:var(--text)}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
 .tab b{font-weight:900;margin-left:7px;opacity:.65}
 
-.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
 input[type=search]{flex:1;min-width:200px;background:var(--bg-3);border:1.5px solid var(--line);border-radius:4px;
   color:var(--text);font-family:inherit;font-size:12px;font-weight:600;padding:9px 12px}
 input[type=search]:focus{outline:none;border-color:var(--gold)}
@@ -57,23 +56,32 @@ th{font-size:8.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase
 td{font-size:12px;font-weight:600;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bg-3)}
-td.nome{font-weight:800}
+td.nome{font-weight:800;min-width:150px}
 td.nome small{display:block;font-weight:600;color:var(--muted);font-size:10px;margin-top:2px}
 .contato{color:var(--muted);font-size:10.5px;font-weight:600;white-space:nowrap}
+td.palestra{max-width:280px;font-size:11.5px}
+td.palestra b{font-weight:800;color:var(--gold);display:block;line-height:1.35}
+td.palestra small{display:block;font-weight:600;color:var(--muted);font-size:10px;margin-top:4px;line-height:1.45}
+td.obs{max-width:190px;font-size:10.5px;font-weight:600;color:var(--muted);line-height:1.45}
+.dias{display:block;font-size:9px;font-weight:700;color:var(--muted);margin-top:4px;letter-spacing:.5px}
 
 .pill{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
-  padding:4px 9px;border-radius:3px;white-space:nowrap}
-.p-gh{background:rgba(232,148,58,.15);color:var(--gold)}
+  padding:4px 9px;border-radius:3px;white-space:nowrap;margin-bottom:3px}
 .p-bm{background:rgba(238,240,232,.1);color:var(--text)}
+.p-gh{background:rgba(232,148,58,.15);color:var(--gold)}
 .p-hs{background:rgba(127,176,105,.15);color:var(--ok)}
+.p-out{background:rgba(154,160,140,.12);color:var(--muted)}
 .p-sim{background:rgba(127,176,105,.15);color:var(--ok)}
 .p-nao{background:rgba(255,92,58,.15);color:var(--danger)}
 .p-pend{background:rgba(154,160,140,.15);color:var(--muted)}
 .p-falta{background:rgba(255,92,58,.18);color:var(--danger)}
+.p-semform{background:rgba(232,148,58,.18);color:var(--gold)}
 .p-ok{background:rgba(127,176,105,.15);color:var(--ok)}
+.p-conf{background:rgba(255,92,58,.25);color:#fff}
 
 .aviso{background:var(--bg-2);border:1.5px solid var(--line);border-left:3px solid var(--gold);border-radius:4px;
-  padding:13px 16px;margin-bottom:18px;font-size:11.5px;font-weight:600;line-height:1.6;color:var(--muted)}
+  padding:13px 16px;margin-bottom:10px;font-size:11.5px;font-weight:600;line-height:1.6;color:var(--muted)}
+.aviso.erro{border-left-color:var(--danger)}
 .aviso b{color:var(--text);font-weight:800}
 .vazio{padding:40px;text-align:center;font-size:12px;font-weight:700;color:var(--muted)}
 footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;
@@ -81,7 +89,7 @@ footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display
 .tag{font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text);display:flex;align-items:center;gap:7px}
 .tag::before{content:'';width:5px;height:5px;background:var(--gold);display:block}
 .direita{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-@media(max-width:640px){h1{font-size:24px}.card .valor{font-size:30px}th,td{padding:9px 8px}}
+@media(max-width:640px){h1{font-size:24px}.card .valor{font-size:28px}th,td{padding:9px 8px}}
 </style>
 </head>
 <body>
@@ -100,14 +108,13 @@ footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display
 </header>
 
 <div id="avisos"></div>
-
 <div class="cards" id="cards"></div>
-
 <div class="tabs" id="tabs"></div>
 
 <div class="toolbar">
   <input type="search" id="busca" placeholder="Buscar por nome...">
   <label class="chk"><input type="checkbox" id="soConf"> Só confirmados</label>
+  <label class="chk"><input type="checkbox" id="soPend"> Só pendências</label>
   <label class="chk"><input type="checkbox" id="verContato"> Mostrar contato</label>
 </div>
 
@@ -121,24 +128,22 @@ footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display
 </div>
 
 <script>
-/* ============================================================
-   FONTES DE DADOS
-   Para ligar a planilha de presença do time:
-   1. Publique a aba dela em CSV (Arquivo > Compartilhar > Publicar na web)
-   2. Cole a URL em PRESENCA_URL abaixo
-   3. Ajuste PRESENCA_COL_EMAIL / PRESENCA_COL_NOME se os cabeçalhos forem outros
-   ============================================================ */
+/* ===== FONTES ===== */
 const FONTES = [
   { prog:'Black Monster',  cls:'p-bm', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vQNY4lqMJK0MntsBvHnSd6bEFrYGcQxZi9EeO_PwMrm3xlqcAHu1wpNwqDgW6GJi3oDGVfptnh4XwO7/pub?output=csv' },
   { prog:'Health Society', cls:'p-hs', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vSO8ogCyMiKcBhai8-Yy54Og27J4iX8-qIxxQXyRcmP-ksuhuMz5NHx7Cx8wZnJMCb-0SRfyfE3iUGl/pub?output=csv' },
   { prog:'GH',             cls:'p-gh', url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vSApE_WqDwnGwVJQplC2dooPLmQhmOiQKP-KG0wTaOY9ADKzgi6k0mnZX9TkXuiqi-SWz3F_7ozLEZv/pub?output=csv' }
 ];
+const PALESTRAS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQny7ukn5PWV4M9jeKWF_84rgFrDR1GDKX98-a4YIcyBcz1_h_mufqdUCGFRwNFK7Ti1aiaCdRJpuFg/pub?gid=1576549150&single=true&output=csv';
+/* Uma entrada por aba de presença. dias = cabeçalhos exatos das colunas de data. */
+const PRESENCAS = [
+  { encontro:'Black',   dias:['29/9','30/9','1/10'],
+    url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vR27QgwnruP4RYQoAkfDYZIsgQuAY5FoJt4mwx7VgV9VDYSCtd9GnJQeF9NeytVpimN9maftNK9asS-/pub?gid=0&single=true&output=csv' },
+  { encontro:'Médicos', dias:['27/9','28/9','29/9'],
+    url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vR27QgwnruP4RYQoAkfDYZIsgQuAY5FoJt4mwx7VgV9VDYSCtd9GnJQeF9NeytVpimN9maftNK9asS-/pub?gid=713447917&single=true&output=csv' }
+];
 
-const PRESENCA_URL = '';                       // <-- cole aqui quando o time publicar
-const PRESENCA_COL_EMAIL = 'e-mail';           // trecho do cabeçalho da coluna de e-mail
-const PRESENCA_COL_NOME  = 'nome';             // trecho do cabeçalho da coluna de nome
-
-/* ---------- parser CSV ---------- */
+/* ===== CSV ===== */
 function parseCSV(txt){
   txt = txt.replace(/^\uFEFF/,'');
   const linhas=[]; let campo='', linha=[], aspas=false;
@@ -162,88 +167,141 @@ function parseCSV(txt){
     .map(l=>{ const o={}; cab.forEach((h,i)=>o[h]=(l[i]||'').trim()); return o; });
 }
 
-/* ---------- helpers ---------- */
-const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
-const col  = (obj,...termos) => {
-  const k = Object.keys(obj).find(k=>termos.every(t=>norm(k).includes(norm(t))));
-  return k ? obj[k] : '';
-};
+/* ===== helpers ===== */
+const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();
+const col  = (obj,...t) => { const k=Object.keys(obj).find(k=>t.every(x=>norm(k).includes(norm(x)))); return k?obj[k]:''; };
+const colExata = (obj,nome) => { const k=Object.keys(obj).find(k=>k.trim()===nome); return k?obj[k]:''; };
+const vazio = v => !v || /^[.\-–—]+$/.test(v.trim());
+const limpa = v => vazio(v) ? '' : v.trim();
+const sim = v => /^(true|sim|x)$/i.test((v||'').trim());
+
+function mesmoNome(a,b){
+  a=norm(a); b=norm(b);
+  if(!a||!b) return false;
+  if(a===b) return true;
+  const pa=a.split(' '), pb=b.split(' ');
+  if(pa.length<2||pb.length<2) return false;
+  return pa[0]===pb[0] && pa[pa.length-1]===pb[pb.length-1];
+}
+function mesmaPessoa(a,b){
+  if(a.email && b.email && norm(a.email)===norm(b.email)) return true;
+  return mesmoNome(a.nome,b.nome);
+}
 function ehTeste(r){
   const n=norm(r.nome), e=norm(r.email);
-  if(/^(teste?|test)\b/.test(n) || /^(teste?|test)\b/.test(e)) return true;
-  if(/teste|gmial\.com/.test(e)) return true;
-  // respostas sem sentido: 4+ campos com string sem vogal-consoante plausível
-  const lixo=[r.temas,r.hotseat,r.sugestao].filter(v=>v && /^[a-z]{5,}$/i.test(v) && !/[aeiou]{1}[a-z]*\s/.test(v)).length;
-  return lixo>=3;
+  return /^(teste?|test)\b/.test(n) || /^(teste?|test)\b/.test(e) || /teste|gmial\.com/.test(e);
+}
+function progDoTime(v){
+  const n=norm(v);
+  if(!n) return {prog:'Sem programa', cls:'p-out'};
+  if(n.includes('black')) return {prog:'Black Monster', cls:'p-bm'};
+  if(n.includes('health')) return {prog:'Health Society', cls:'p-hs'};
+  if(n.includes('master gh')||n==='gh') return {prog:'Master GH', cls:'p-gh'};
+  if(n.includes('business')) return {prog:'Health Business Pro', cls:'p-out'};
+  return {prog:v.trim(), cls:'p-out'};
 }
 
-let DADOS=[], PRESENCA=null, ERROS=[], TESTES=0, ABA='Geral';
+let DADOS=[], PALESTRAS=[], PRESENCA=[], ERROS=[], TESTES=0, ABA='Geral';
 
 async function carregar(){
   document.getElementById('dot').className='dot';
   document.getElementById('statusTxt').textContent='Carregando';
-  DADOS=[]; ERROS=[]; TESTES=0;
+  DADOS=[]; PALESTRAS=[]; PRESENCA=[]; ERROS=[]; TESTES=0;
 
+  /* --- formulários de confirmação --- */
   await Promise.all(FONTES.map(async f=>{
     try{
       const r = await fetch(f.url+'&_='+Date.now());
-      if(!r.ok) throw new Error(r.status);
+      if(!r.ok) throw 0;
       parseCSV(await r.text()).forEach(row=>{
-        const item={
-          prog:f.prog, cls:f.cls,
-          nome:  col(row,'nome completo') || col(row,'nome'),
+        const d = {
+          origem:'form', prog:f.prog, cls:f.cls,
+          nome: col(row,'nome completo') || col(row,'nome'),
           apelido: col(row,'gostaria de ser chamado'),
           email: col(row,'e-mail'),
-          zap:   col(row,'whatsapp'),
-          conf:  col(row,'encontro vai acontecer'),
+          zap: col(row,'whatsapp'),
           moletom: col(row,'moletom'),
-          restr: col(row,'restri'),
-          hotseat: col(row,'hotseat'),
-          temas: col(row,'temas'),
-          sugestao: col(row,'sugest'),
-          enviado: col(row,'submitted')
+          restr: limpa(col(row,'restri')),
+          hotseat: limpa(col(row,'hotseat')),
+          querPalestra: sim(col(row,'palestra')),
+          obs:'', dias:null
         };
-        if(!item.nome && !item.email) return;
-        if(ehTeste(item)){ TESTES++; return; }
-        item.vai = /^sim/i.test(item.conf.trim());
-        item.respondeu = item.conf.trim()!=='';
-        DADOS.push(item);
+        if(!d.nome && !d.email) return;
+        if(ehTeste(d)){ TESTES++; return; }
+        const conf = col(row,'encontro vai acontecer') || col(row,'encontro');
+        d.respondeu = conf.trim()!=='';
+        d.vai = /^sim/i.test(conf.trim());
+        if(!DADOS.some(x=>mesmaPessoa(x,d))) DADOS.push(d);
       });
     }catch(e){ ERROS.push(f.prog); }
   }));
 
-  PRESENCA=null;
-  if(PRESENCA_URL){
-    try{
-      const r=await fetch(PRESENCA_URL+'&_='+Date.now());
-      PRESENCA = parseCSV(await r.text()).map(row=>({
-        email: norm(col(row,PRESENCA_COL_EMAIL)),
-        nome:  norm(col(row,PRESENCA_COL_NOME))
-      })).filter(p=>p.email||p.nome);
-    }catch(e){ ERROS.push('Presença'); }
-  }
+  /* --- palestras --- */
+  try{
+    const r = await fetch(PALESTRAS_URL+'&_='+Date.now());
+    PALESTRAS = parseCSV(await r.text()).map(row=>({
+      nome: col(row,'nome completo') || col(row,'nome'),
+      tema: limpa(col(row,'tema da sua palestra')),
+      resultado: limpa(col(row,'resultado foi alcan'))
+    })).filter(p=>p.nome && !ehTeste({nome:p.nome,email:''}));
+  }catch(e){ ERROS.push('Palestras'); }
 
-  // cruzamento
+  /* --- planilhas de presença do time (uma por encontro) --- */
+  await Promise.all(PRESENCAS.filter(f=>f.url).map(async f=>{
+    try{
+      const r = await fetch(f.url+'&_='+Date.now());
+      parseCSV(await r.text()).forEach(row=>{
+        const p = {
+          encontro: f.encontro,
+          nome: (col(row,'nome')||'').trim(),
+          apelido: col(row,'gostaria de ser chamado'),
+          email: col(row,'email'),
+          zap: col(row,'telefone'),
+          moletom: col(row,'tamanho'),
+          programa: col(row,'mastermind'),
+          obs: limpa(col(row,'obs')),
+          dias: f.dias.map(d=>({rot:d, v:sim(colExata(row,d))}))
+        };
+        if(p.nome || p.email) PRESENCA.push(p);
+      });
+    }catch(e){ ERROS.push('Presença '+f.encontro); }
+  }));
+
+  /* --- cruzamentos --- */
   DADOS.forEach(d=>{
-    if(!PRESENCA){ d.presenca='sem-planilha'; return; }
-    const achou = PRESENCA.some(p =>
-      (p.email && d.email && p.email===norm(d.email)) ||
-      (p.nome && d.nome && p.nome===norm(d.nome))
-    );
-    d.presenca = achou ? 'ok' : 'falta';
+    const p = PALESTRAS.find(p=>mesmoNome(p.nome,d.nome));
+    d.palestraTema = p ? p.tema : '';
+    d.palestraResultado = p ? p.resultado : '';
+
+    const t = PRESENCA.find(t=>mesmaPessoa(t,d));
+    if(!PRESENCA.length){ d.status='sem-planilha'; return; }
+    if(!t){ d.status='falta'; return; }
+    d.status='ok';
+    d.dias = t.dias;
+    d.encontro = t.encontro;
+    d.obs  = t.obs;
+    if(!d.moletom) d.moletom = t.moletom;
+    // conflito: disse SIM no formulário, mas o time marcou todos os dias como não
+    d.conflito = d.vai && t.dias.every(x=>!x.v);
   });
 
-  // quem está na presença mas não preencheu o formulário
-  window.SO_PRESENCA = [];
-  if(PRESENCA){
-    PRESENCA.forEach(p=>{
-      const achou = DADOS.some(d =>
-        (p.email && d.email && p.email===norm(d.email)) ||
-        (p.nome && d.nome && p.nome===norm(d.nome))
-      );
-      if(!achou) window.SO_PRESENCA.push(p);
+  // quem está na planilha do time e não preencheu formulário nenhum
+  PRESENCA.forEach(t=>{
+    if(DADOS.some(d=>mesmaPessoa(d,t))) return;
+    const {prog,cls} = progDoTime(t.programa);
+    DADOS.push({
+      origem:'presenca', prog, cls,
+      encontro:t.encontro, nome:t.nome, apelido:t.apelido, email:t.email, zap:t.zap,
+      moletom:t.moletom, restr:'', hotseat:'', obs:t.obs, dias:t.dias,
+      respondeu:false, vai:t.dias.some(x=>x.v), querPalestra:false,
+      palestraTema:(PALESTRAS.find(p=>mesmoNome(p.nome,t.nome))||{}).tema||'',
+      palestraResultado:(PALESTRAS.find(p=>mesmoNome(p.nome,t.nome))||{}).resultado||'',
+      status:'sem-form'
     });
-  }
+  });
+
+  // palestras de quem não aparece em lugar nenhum
+  window.SO_PALESTRA = PALESTRAS.filter(p=>!DADOS.some(d=>mesmoNome(d.nome,p.nome)));
 
   const agora = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('dot').className = ERROS.length ? 'dot err' : 'dot';
@@ -254,44 +312,50 @@ async function carregar(){
 function render(){
   const busca = norm(document.getElementById('busca').value);
   const soConf = document.getElementById('soConf').checked;
+  const soPend = document.getElementById('soPend').checked;
   const verContato = document.getElementById('verContato').checked;
 
-  // avisos
+  /* avisos */
   const av=[];
-  if(ERROS.length) av.push('<b>Falha ao ler:</b> '+ERROS.join(', ')+'. Verifique se a planilha continua publicada.');
-  if(window.SO_PRESENCA && window.SO_PRESENCA.length) av.push('<b>'+window.SO_PRESENCA.length+' pessoa(s) na planilha de presença</b> não preencheram o formulário do Typeform.');
-  document.getElementById('avisos').innerHTML = av.map(a=>'<div class="aviso">'+a+'</div>').join('');
+  if(ERROS.length) av.push({e:1,t:'<b>Falha ao ler:</b> '+ERROS.join(', ')+'. Confira se a planilha continua publicada.'});
+  const conflitos = DADOS.filter(d=>d.conflito);
+  if(conflitos.length) av.push({e:1,t:'<b>'+conflitos.length+' conflito(s):</b> confirmou presença no formulário, mas o time marcou os três dias como não — '+conflitos.map(d=>esc(d.nome)).join(', ')+'.'});
+  if(window.SO_PALESTRA && window.SO_PALESTRA.length) av.push({e:0,t:'<b>'+window.SO_PALESTRA.length+' tema(s) de palestra</b> de gente fora de todas as listas: '+window.SO_PALESTRA.map(p=>esc(p.nome)).join(', ')+'.'});
+  document.getElementById('avisos').innerHTML = av.map(a=>`<div class="aviso${a.e?' erro':''}">${a.t}</div>`).join('');
 
-  // cards
+  /* cards */
   const conf = DADOS.filter(d=>d.vai);
-  const nao  = DADOS.filter(d=>d.respondeu && !d.vai);
-  const falta = DADOS.filter(d=>d.vai && d.presenca==='falta');
+  const falta = DADOS.filter(d=>d.status==='falta');
+  const semForm = DADOS.filter(d=>d.status==='sem-form');
+  const comTema = DADOS.filter(d=>d.palestraTema);
+  const querSemTema = DADOS.filter(d=>d.querPalestra && !d.palestraTema);
+  const progs = [...new Set(DADOS.map(d=>d.prog))];
+
   document.getElementById('cards').innerHTML = `
     <div class="card"><div class="modo">Confirmados</div><div class="valor">${conf.length}</div>
-      <div class="det">de ${DADOS.length} respostas</div></div>
-    <div class="card neutro"><div class="modo">Não vão</div><div class="valor">${nao.length}</div>
-      <div class="det">responderam não</div></div>
-    ${FONTES.map(f=>{
-      const n = conf.filter(d=>d.prog===f.prog).length;
-      return `<div class="card neutro"><div class="modo">${f.prog}</div><div class="valor">${n}</div>
-      <div class="det">confirmados</div></div>`;
-    }).join('')}
-    ${PRESENCA?`<div class="card alerta"><div class="modo">Falta na presença</div><div class="valor">${falta.length}</div>
-      <div class="det">confirmados fora da lista</div></div>`:''}
-  `;
+      <div class="det">de ${DADOS.length} pessoas</div></div>
+    ${progs.map(p=>`<div class="card neutro"><div class="modo">${esc(p)}</div>
+      <div class="valor">${conf.filter(d=>d.prog===p).length}</div><div class="det">confirmados</div></div>`).join('')}
+    <div class="card"><div class="modo">Palestras</div><div class="valor">${comTema.length}</div>
+      <div class="det">${querSemTema.length} sem tema</div></div>
+    <div class="card alerta"><div class="modo">Falta na presença</div><div class="valor">${falta.length}</div>
+      <div class="det">confirmou, fora da lista</div></div>
+    <div class="card alerta"><div class="modo">Sem formulário</div><div class="valor">${semForm.length}</div>
+      <div class="det">na lista, sem Typeform</div></div>`;
 
-  // tabs
-  const abas = ['Geral', ...FONTES.map(f=>f.prog)];
+  /* tabs */
+  const abas = ['Geral', ...progs];
   document.getElementById('tabs').innerHTML = abas.map(a=>{
     const n = a==='Geral' ? conf.length : conf.filter(d=>d.prog===a).length;
-    return `<button class="tab ${a===ABA?'on':''}" data-aba="${a}">${a}<b>${n}</b></button>`;
+    return `<button class="tab ${a===ABA?'on':''}" data-aba="${esc(a)}">${esc(a)}<b>${n}</b></button>`;
   }).join('');
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{ABA=b.dataset.aba;render();});
 
-  // linhas
-  let linhas = DADOS
+  /* linhas */
+  const linhas = DADOS
     .filter(d=>ABA==='Geral'||d.prog===ABA)
     .filter(d=>!soConf||d.vai)
+    .filter(d=>!soPend||d.status==='falta'||d.status==='sem-form'||d.conflito)
     .filter(d=>!busca||norm(d.nome).includes(busca)||norm(d.apelido).includes(busca))
     .sort((a,b)=> (b.vai-a.vai) || a.nome.localeCompare(b.nome,'pt-BR'));
 
@@ -300,10 +364,24 @@ function render(){
     return;
   }
 
-  const statusPresenca = d => {
-    if(!PRESENCA) return '<span class="pill p-pend">Sem planilha</span>';
-    if(d.presenca==='falta') return '<span class="pill p-falta">Falta na presença</span>';
+  const badgeStatus = d => {
+    if(d.conflito) return '<span class="pill p-conf">Conflito</span>';
+    if(d.status==='falta') return '<span class="pill p-falta">Falta na presença</span>';
+    if(d.status==='sem-form') return '<span class="pill p-semform">Sem formulário</span>';
+    if(d.status==='sem-planilha') return '<span class="pill p-pend">Sem planilha</span>';
     return '<span class="pill p-ok">Na lista</span>';
+  };
+  const badgeConf = d => {
+    if(d.vai) return '<span class="pill p-sim">Vai</span>';
+    if(d.respondeu) return '<span class="pill p-nao">Não vai</span>';
+    return '<span class="pill p-pend">Sem resposta</span>';
+  };
+  const diasTxt = d => {
+    if(!d.dias) return '';
+    const v = d.dias.filter(x=>x.v).map(x=>x.rot);
+    if(!v.length) return '<span class="dias">nenhum dia marcado</span>';
+    if(v.length===3) return '';
+    return '<span class="dias">só '+v.join(' · ')+'</span>';
   };
 
   document.getElementById('tabela').innerHTML = `
@@ -311,24 +389,33 @@ function render(){
     <thead><tr>
       <th>Nome</th>
       ${ABA==='Geral'?'<th>Programa</th>':''}
+      <th>Encontro</th>
       <th>Confirmação</th>
       ${verContato?'<th>Contato</th>':''}
       <th>Moletom</th>
       <th>Restrição</th>
       <th>Hotseat</th>
-      <th>Presença</th>
+      <th>Palestra · Tema</th>
+      <th>Status</th>
+      <th>OBS do time</th>
     </tr></thead>
     <tbody>
     ${linhas.map(d=>`
       <tr>
         <td class="nome">${esc(d.nome)}${d.apelido&&norm(d.apelido)!==norm(d.nome)?`<small>${esc(d.apelido)}</small>`:''}</td>
-        ${ABA==='Geral'?`<td><span class="pill ${d.cls}">${d.prog}</span></td>`:''}
-        <td>${d.vai?'<span class="pill p-sim">Vai</span>':d.respondeu?'<span class="pill p-nao">Não vai</span>':'<span class="pill p-pend">Sem resposta</span>'}</td>
+        ${ABA==='Geral'?`<td><span class="pill ${d.cls}">${esc(d.prog)}</span></td>`:''}
+        <td>${d.encontro?`<span class="pill p-out">${esc(d.encontro)}</span>`:'—'}</td>
+        <td>${badgeConf(d)}${diasTxt(d)}</td>
         ${verContato?`<td class="contato">${esc(d.email)}<br>${esc(d.zap)}</td>`:''}
         <td>${esc(d.moletom)||'—'}</td>
         <td>${esc(d.restr)||'—'}</td>
         <td>${esc(d.hotseat)||'—'}</td>
-        <td>${statusPresenca(d)}</td>
+        <td class="palestra">${
+          d.palestraTema ? `<b>${esc(d.palestraTema)}</b>${d.palestraResultado?`<small>${esc(d.palestraResultado)}</small>`:''}`
+          : d.querPalestra ? '<span class="pill p-pend">Quer palestrar · sem tema</span>' : '—'
+        }</td>
+        <td>${badgeStatus(d)}</td>
+        <td class="obs">${esc(d.obs)||'—'}</td>
       </tr>`).join('')}
     </tbody>
   </table>`;
@@ -338,6 +425,7 @@ function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 
 document.getElementById('busca').oninput=render;
 document.getElementById('soConf').onchange=render;
+document.getElementById('soPend').onchange=render;
 document.getElementById('verContato').onchange=render;
 document.getElementById('reload').onclick=carregar;
 
