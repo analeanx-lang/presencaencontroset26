@@ -83,6 +83,20 @@ td.obs{max-width:190px;font-size:10.5px;font-weight:600;color:var(--muted);line-
   padding:13px 16px;margin-bottom:10px;font-size:11.5px;font-weight:600;line-height:1.6;color:var(--muted)}
 .aviso.erro{border-left-color:var(--danger)}
 .aviso b{color:var(--text);font-weight:800}
+.pal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.pal{background:var(--bg-2);border:1.5px solid var(--line);border-left:3px solid var(--gold);border-radius:5px;padding:18px 20px}
+.pal.pendente{border-left-color:var(--muted)}
+.pal .quem{font-size:15px;font-weight:900;line-height:1.2}
+.pal .quem small{display:block;font-size:10px;font-weight:700;color:var(--muted);margin-top:3px}
+.pal .pills{margin:10px 0 12px;display:flex;gap:5px;flex-wrap:wrap}
+.pal .tema{font-size:13.5px;font-weight:800;color:var(--gold);line-height:1.4;margin-bottom:9px}
+.pal .tema.sem{color:var(--muted);font-weight:700;font-style:italic}
+.pal .res{font-size:11.5px;font-weight:600;color:var(--text);line-height:1.55;opacity:.85}
+.pal .res b{display:block;font-size:8.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pal .meta{margin-top:13px;padding-top:11px;border-top:1px solid var(--line);display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:9px}
+.pal .meta div{font-size:10.5px;font-weight:700;color:var(--text)}
+.pal .meta span{display:block;font-size:8px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 .vazio{padding:40px;text-align:center;font-size:12px;font-weight:700;color:var(--muted)}
 footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;
   align-items:center;flex-wrap:wrap;gap:10px}
@@ -344,12 +358,16 @@ function render(){
       <div class="det">na lista, sem Typeform</div></div>`;
 
   /* tabs */
-  const abas = ['Geral', ...progs];
+  const abas = ['Geral', ...progs, 'Palestras'];
   document.getElementById('tabs').innerHTML = abas.map(a=>{
-    const n = a==='Geral' ? conf.length : conf.filter(d=>d.prog===a).length;
+    const n = a==='Geral' ? conf.length
+            : a==='Palestras' ? comTema.length + querSemTema.length + (window.SO_PALESTRA||[]).length
+            : conf.filter(d=>d.prog===a).length;
     return `<button class="tab ${a===ABA?'on':''}" data-aba="${esc(a)}">${esc(a)}<b>${n}</b></button>`;
   }).join('');
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{ABA=b.dataset.aba;render();});
+
+  if(ABA==='Palestras'){ renderPalestras(busca); return; }
 
   /* linhas */
   const linhas = DADOS
@@ -419,6 +437,50 @@ function render(){
       </tr>`).join('')}
     </tbody>
   </table>`;
+}
+
+function renderPalestras(busca){
+  const lista = DADOS.filter(d=>d.palestraTema||d.querPalestra)
+    .map(d=>({
+      nome:d.nome, apelido:d.apelido, prog:d.prog, cls:d.cls, encontro:d.encontro,
+      tema:d.palestraTema, resultado:d.palestraResultado,
+      vai:d.vai, respondeu:d.respondeu, status:d.status, conflito:d.conflito,
+      hotseat:d.hotseat, moletom:d.moletom, restr:d.restr, obs:d.obs, orfao:false
+    }))
+    .concat((window.SO_PALESTRA||[]).map(p=>({
+      nome:p.nome, apelido:'', prog:'—', cls:'p-out', encontro:'',
+      tema:p.tema, resultado:p.resultado,
+      vai:false, respondeu:false, status:'orfao', hotseat:'', moletom:'', restr:'', obs:'', orfao:true
+    })))
+    .filter(p=>!busca||norm(p.nome).includes(busca)||norm(p.tema).includes(busca))
+    .sort((a,b)=> (b.tema?1:0)-(a.tema?1:0) || a.nome.localeCompare(b.nome,'pt-BR'));
+
+  if(!lista.length){
+    document.getElementById('tabela').innerHTML='<div class="vazio">Ninguém marcou palestra ainda.</div>';
+    return;
+  }
+
+  document.getElementById('tabela').innerHTML = '<div class="pal-grid">' + lista.map(p=>`
+    <div class="pal${p.tema?'':' pendente'}">
+      <div class="quem">${esc(p.nome)}${p.apelido&&norm(p.apelido)!==norm(p.nome)?`<small>${esc(p.apelido)}</small>`:''}</div>
+      <div class="pills">
+        <span class="pill ${p.cls}">${esc(p.prog)}</span>
+        ${p.encontro?`<span class="pill p-out">${esc(p.encontro)}</span>`:''}
+        ${p.vai?'<span class="pill p-sim">Vai</span>':p.respondeu?'<span class="pill p-nao">Não vai</span>':'<span class="pill p-pend">Sem resposta</span>'}
+        ${p.conflito?'<span class="pill p-conf">Conflito</span>':''}
+        ${p.orfao?'<span class="pill p-falta">Fora de todas as listas</span>':''}
+        ${p.status==='sem-form'?'<span class="pill p-semform">Sem formulário</span>':''}
+        ${p.status==='falta'?'<span class="pill p-falta">Falta na presença</span>':''}
+      </div>
+      <div class="tema${p.tema?'':' sem'}">${p.tema?esc(p.tema):'Tema ainda não enviado'}</div>
+      ${p.resultado?`<div class="res"><b>Resultado alcançado</b>${esc(p.resultado)}</div>`:''}
+      <div class="meta">
+        <div><span>Hotseat</span>${esc(p.hotseat)||'—'}</div>
+        <div><span>Moletom</span>${esc(p.moletom)||'—'}</div>
+        <div><span>Restrição</span>${esc(p.restr)||'—'}</div>
+        ${p.obs?`<div><span>OBS do time</span>${esc(p.obs)}</div>`:''}
+      </div>
+    </div>`).join('') + '</div>';
 }
 
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
