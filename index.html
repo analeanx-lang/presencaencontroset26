@@ -361,7 +361,7 @@ function render(){
   const abas = ['Geral', ...progs, 'Palestras'];
   document.getElementById('tabs').innerHTML = abas.map(a=>{
     const n = a==='Geral' ? conf.length
-            : a==='Palestras' ? comTema.length + querSemTema.length + (window.SO_PALESTRA||[]).length
+            : a==='Palestras' ? DADOS.filter(d=>d.vai&&(d.palestraTema||d.querPalestra)).length
             : conf.filter(d=>d.prog===a).length;
     return `<button class="tab ${a===ABA?'on':''}" data-aba="${esc(a)}">${esc(a)}<b>${n}</b></button>`;
   }).join('');
@@ -440,18 +440,13 @@ function render(){
 }
 
 function renderPalestras(busca){
-  const lista = DADOS.filter(d=>d.palestraTema||d.querPalestra)
+  const lista = DADOS.filter(d=>d.vai && (d.palestraTema||d.querPalestra))
     .map(d=>({
       nome:d.nome, apelido:d.apelido, prog:d.prog, cls:d.cls, encontro:d.encontro,
       tema:d.palestraTema, resultado:d.palestraResultado,
       vai:d.vai, respondeu:d.respondeu, status:d.status, conflito:d.conflito,
       hotseat:d.hotseat, moletom:d.moletom, restr:d.restr, obs:d.obs, orfao:false
     }))
-    .concat((window.SO_PALESTRA||[]).map(p=>({
-      nome:p.nome, apelido:'', prog:'—', cls:'p-out', encontro:'',
-      tema:p.tema, resultado:p.resultado,
-      vai:false, respondeu:false, status:'orfao', hotseat:'', moletom:'', restr:'', obs:'', orfao:true
-    })))
     .filter(p=>!busca||norm(p.nome).includes(busca)||norm(p.tema).includes(busca))
     .sort((a,b)=> (b.tema?1:0)-(a.tema?1:0) || a.nome.localeCompare(b.nome,'pt-BR'));
 
